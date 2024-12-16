@@ -7,6 +7,10 @@ import org.example.StreamUtil.Streams;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.function.Supplier;
 
 public class Main {
     public static void main(String[] args) {
@@ -26,10 +30,19 @@ public class Main {
 
         // Пример работы с transform (Из User -> BigUser)
 
-        Map<String, Class<?>> result2 = Streams.of(users)
+        Map<String, Class<? extends BigUser>> result2 = Streams.of(users)
                 .transform((User user) -> new BigUser(user.getName(), user.getAge()))
                 .toMap((BigUser::getName), (BigUser::getClass));
 
+
+        // Учебный эксперимент
+        Map<String, Class<BigUser>> result2WithSupplier = Streams.of(users)
+                .transform((User user) -> new BigUser(user.getName(), user.getAge()))
+                .toMap((BigUser::getName), (() -> BigUser.class));
+
+
         System.out.println(result2);
+        // Учебный эксперимент
+        System.out.println(result2WithSupplier);
     }
 }
