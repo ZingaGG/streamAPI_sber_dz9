@@ -11,6 +11,7 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
+import java.util.stream.Stream;
 
 public class Main {
     public static void main(String[] args) {
@@ -44,5 +45,14 @@ public class Main {
         System.out.println(result2);
         // Учебный эксперимент
         System.out.println(result2WithSupplier);
+
+
+        // Stream Builder pattern
+        Stream.Builder<Integer> a = Stream.builder();
+        a.add(1);
+        a.add(2);
+        Stream<Integer> resStream = a.build();
+        resStream.filter(x -> x > 1)
+                .forEach(System.out::println);
     }
 }
